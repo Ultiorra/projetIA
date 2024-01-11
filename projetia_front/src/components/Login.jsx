@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({ setUser,apiUrl }) => {
+const LoginPage = ({ setUser,apiUrl, setConnected , connected}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useNavigate();
 
     const handleLogin = async () => {
-        checkAdminRights()
+        await checkAdminRights()
         history('/')
     };
 
@@ -28,35 +28,45 @@ const LoginPage = ({ setUser,apiUrl }) => {
             if (!response.ok) {
                 throw new Error('Invalid response from server');
             }
+            setConnected(true)
 
             const result = await response.json();
 
             console.log('Result:', result);
-            // Check if the user has admin rights based on the role or any other criteria.
-            const isAdmin = result.user.typeUtilisateur === 'administrateur';
-            setUser(result.user);
-
-            return isAdmin;
+           setUser(result.user);
         } catch (error) {
             console.error('Error checking admin rights:', error);
             return false;
         }
     };
 
+    useEffect(() => {
+        if (connected)
+            history("/")
+    }, []);
     return (
         <div>
-            <h2>Page de Connexion</h2>
-            <form    style={{ display: 'flex', flexDirection: 'column', width: '10%' , left: '50%', top: '50%', position: 'absolute', transform: 'translate(-50%, -50%)'}}>
+
+            <form style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '10%',
+                left: '50%',
+                top: '50%',
+                position: 'absolute',
+                transform: 'translate(-50%, -50%)'
+            }}>
+                <h2>Page de Connexion</h2>
                 <label>
-                    Nom d'utilisateur:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    Email:
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
                 </label>
-                <br />
+                <br/>
                 <label>
                     Mot de passe:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </label>
-                <br />
+                <br/>
                 <button type="button" onClick={handleLogin}>
                     Se connecter
                 </button>

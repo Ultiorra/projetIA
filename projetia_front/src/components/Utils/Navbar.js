@@ -8,52 +8,50 @@ import {toast} from "react-toastify";
 const path = "http://localhost/my-app/prochess/";
 
 
-function NavBar({isConnected, setConnected}) {
+function NavBar({isConnected, setConnected, setUser}) {
     const navigate = useNavigate();
     const handleLogout = async (e) => {
         e.preventDefault();
-
-        var requestOption = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-        }
-        fetch(path + 'logout.php', requestOption).then(response => {
-            console.log(response.status)
-            if (response.status === 200){
-                toast('Déconnexion réussie', {type: 'success', autoClose: 2000, position: toast.POSITION.TOP_CENTER});
-                navigate('/');
-                setConnected(false);
+        setConnected(false);
+        setUser({
+            login: '',
+            id: '',
+            email: '',
+            typeUtilisateur: 'nonconnected',
+            directories: {
+                id: '',
+                name: '',
+                ouvertures: '',
+                nb_tests: '',
+                nb_success: '',
+                color: '',
             }
-            else
-                toast('Erreur de déconnexion', {type: 'error', autoClose: 2000, position: toast.POSITION.TOP_CENTER});
         })
-            .catch(error => {
-
-                toast('Erreur de déconnexion...', {type: 'error', autoClose: 2000, position: toast.POSITION.TOP_CENTER});
-
-            });
-
+        navigate("/login")
     };
     return (
         <AppBar position="relative">
             <Toolbar>
                 <Typography variant="h6" component={Link} to="/" style={{textDecoration: 'none', color: 'white'}}>
-                    Le truc pour prédire si tu passe
+                    Outil de prédiction des alternances
                 </Typography>
                 <div style={{flexGrow: 1}}></div>
                 {
                     !isConnected ?
+                        <div>
                         <Button component={Link} to="/login" color="inherit">
                             Connexion
                         </Button>
+                        <Button component={Link} to="/signin" color="inherit">
+                            Inscription
+                        </Button>
+                        </div>
                         :
                         <Button component={Link} to="/" color="inherit" onClick={handleLogout}>
                             Déconnexion
                         </Button>
                 }
-                <Button component={Link} to="/signin" color="inherit">
-                    Inscription
-                </Button>
+
 
 
             </Toolbar>

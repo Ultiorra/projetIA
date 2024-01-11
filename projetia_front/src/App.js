@@ -12,11 +12,12 @@ const { createBrowserHistory } = require("history");
 function App() {
     const history = createBrowserHistory();
     const apiUrl = 'http://localhost:8080/api';
+    const [isConnected, setIsConnected] = React.useState(false)
     const [user, setUser] = React.useState({
         login: '',
         id: '',
         email: '',
-        typeUtilisateur: 'administrateur',
+        typeUtilisateur: 'nonconnected',
         directories: {
             id: '',
             name: '',
@@ -32,16 +33,18 @@ function App() {
     } , [user]);
     return (
         <Router >
-            <div>
-                <ToastContainer />
-                < NavBar />
+            <div style={{backgroundColor: '#ede2a4', minHeight: '100vh'}}>
+                <ToastContainer/>
+                < NavBar setConnected={setIsConnected} isConnected={isConnected} setUser={setUser}/>
                 <Routes>
-                    <Route path="/" element={<Home user={user} setUser={setUser} apiUrl={apiUrl} />} />
-                    <Route path="/" element={<Home user={user} setUser={setUser} apiUrl={apiUrl} />} />
-                    <Route path="/login" element={<LoginPage setUser={setUser} apiUrl={apiUrl} />} />
-                    <Route path="/signin" element={<SignupPage  apiUrl={apiUrl} />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                    <Route path="/student-details/:id" element={<StudentDetails apiUrl={apiUrl} />} />
+                    <Route path="/" element={<Home user={user} setUser={setUser} apiUrl={apiUrl}/>}/>
+                    <Route path="/" element={<Home user={user} setUser={setUser} apiUrl={apiUrl}/>}/>
+                    <Route path="/login"
+                           element={<LoginPage setUser={setUser} setConnected={setIsConnected} apiUrl={apiUrl}
+                                               connected={isConnected}/>}/>
+                    <Route path="/signin" element={<SignupPage apiUrl={apiUrl}/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
+                    <Route path="/student-details/:id" element={<StudentDetails apiUrl={apiUrl}/>}/>
 
                 </Routes>
             </div>

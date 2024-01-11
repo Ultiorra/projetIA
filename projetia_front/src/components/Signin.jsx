@@ -13,15 +13,9 @@ const SignupPage = ( {apiUrl}) => {
         motDePasse: '',
         typeUtilisateur: 'etudiant1',
     });
-    const handleSignup = async () => {
-        // Ajoutez ici la logique pour envoyer les données d'inscription au backend.
-        // Vous pouvez également effectuer des validations côté client avant d'envoyer la requête.
-        // Après l'inscription réussie, redirigez l'utilisateur vers la page de connexion.
-        history('/login');
-    };
+
     const handleAddStudent = async () => {
         try {
-            // Envoi de la requête POST pour ajouter un nouvel étudiant
             const response = await fetch(apiUrl + '/usersAdd', {
                 method: 'POST',
                 headers: {
@@ -34,59 +28,57 @@ const SignupPage = ( {apiUrl}) => {
                 throw new Error('Failed to add a new student');
             }
 
-            // Rafraîchir la liste des étudiants après l'ajout
-            const updatedStudents = await response.json();
-            setNewStudent({
-                nom: '',
-                prenom: '',
-                email: '',
-                motDePasse: '',
-                typeUtilisateur: 'etudiant1',
-
-                // Réinitialisez d'autres champs si nécessaire
-            });
+            history('/login')
         } catch (error) {
             console.error('Error adding a new student:', error);
         }
     };
     return (
         <div>
-            <h2>Page d'Inscription</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '10%' , left: '50%', top: '50%', position: 'absolute', transform: 'translate(-50%, -50%)'}}>
-                <h3>Add New Student</h3>
+
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '10%',
+                left: '50%',
+                top: '50%',
+                position: 'absolute',
+                transform: 'translate(-50%, -50%)'
+            }}>
+                <h2>Page d'Inscription</h2>
                 <div>
                     <label>Nom:
                         <input
                             type="text"
                             value={newStudent.nom}
-                            onChange={(e) => setNewStudent({ ...newStudent, nom: e.target.value })}
+                            onChange={(e) => setNewStudent({...newStudent, nom: e.target.value})}
                         />
                     </label>
                     <label>Prénom:
                         <input
                             type="text"
                             value={newStudent.prenom}
-                            onChange={(e) => setNewStudent({ ...newStudent, prenom: e.target.value })}
+                            onChange={(e) => setNewStudent({...newStudent, prenom: e.target.value})}
                         />
                     </label>
                     <label>Email:
                         <input
                             type="text"
                             value={newStudent.email}
-                            onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
+                            onChange={(e) => setNewStudent({...newStudent, email: e.target.value})}
                         />
                     </label>
                     <label>Password:
                         <input
                             type="text"
                             value={newStudent.motDePasse}
-                            onChange={(e) => setNewStudent({ ...newStudent, motDePasse: e.target.value })}
+                            onChange={(e) => setNewStudent({...newStudent, motDePasse: e.target.value})}
                         />
                     </label>
                     <label>Type d'utilisateur:
                         <select name="typeUtilisateur"
                                 value={newStudent.typeUtilisateur}
-                                onChange={(e) => setNewStudent({ ...newStudent, typeUtilisateur: e.target.value })} >
+                                onChange={(e) => setNewStudent({...newStudent, typeUtilisateur: e.target.value})}>
                             <option value="etudiant1">Etudiant 1ere année</option>
                             <option value="etudiant2">Etudiant 2eme année</option>
                             <option value="administrateur">Administrateur</option>

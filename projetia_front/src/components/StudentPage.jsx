@@ -45,64 +45,74 @@ const StudentInterface = ({user, apiUrl}) => {
     };
 
     return (
-        <div>
-            <h2>Interface Étudiant</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Nom de l'entreprise:
-                    <input
-                        type="text"
-                        name="nomEntreprise"
-                        value={formData.nomEntreprise}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Nombre d'entretiens:
-                    <input
-                        type="number"
-                        name="nombreEntretiens"
-                        value={formData.nombreEntretiens}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Date de l'entretien:
-                    <input
-                        type="date"
-                        name="dateContact"
-                        value={formData.dateContact}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Statut:
-                    <select
-                        name="statut"
-                        value={formData.statut}
-                        onChange={handleInputChange}
-                    >
-                        <option value="pending">En attente</option>
-                        <option value="accepted">Accepté</option>
-                        <option value="rejected">Refusé</option>
-                    </select>
-                </label>
-                <br />
-                <label>
-                    Commentaires:
-                    <textarea
-                        name="commentairesEntreprise"
-                        value={formData.commentairesEntreprise}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <button type="submit">Soumettre</button>
-            </form>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh'}}>
+            <form style={{
+                backgroundColor: '#f4f4f4',
+                width: '300px',
+                padding: '20px',
+                border: '1px solid #ccc',
+                borderRadius: '5px',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
+            }} onSubmit={handleSubmit}>
+
+
+                <h2>Interface Étudiant</h2>
+                    <label>
+                        Nom de l'entreprise:
+                        <input
+                            type="text"
+                            name="nomEntreprise"
+                            value={formData.nomEntreprise}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Nombre d'entretiens:
+                        <input
+                            type="number"
+                            name="nombreEntretiens"
+                            value={formData.nombreEntretiens}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Date de l'entretien:
+                        <input
+                            type="date"
+                            name="dateContact"
+                            value={formData.dateContact}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Statut:
+                        <select
+                            name="statut"
+                            value={formData.statut}
+                            onChange={handleInputChange}
+                        >
+                            <option value="pending">En attente</option>
+                            <option value="accepted">Accepté</option>
+                            <option value="rejected">Refusé</option>
+                        </select>
+                    </label>
+                    <br/>
+                    <label>
+                        Commentaires:
+                        <textarea
+                            name="commentairesEntreprise"
+                            value={formData.commentairesEntreprise}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <br/>
+                    <button type="submit">Soumettre</button>
+                </form>
         </div>
-    );
+);
 };
 
 export default StudentInterface;

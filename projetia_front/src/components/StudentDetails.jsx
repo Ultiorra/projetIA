@@ -134,7 +134,11 @@ const StudentDetails = ({ apiUrl }) => {
 
             <div>
                 <h3>Contact Enterprises</h3>
-                <table>
+                <table style={
+                    {
+                        backgroundColor: '#f4f4f4',
+                    }
+                }>
                     <thead>
                     <tr>
                         <th>Nom</th>
@@ -147,7 +151,7 @@ const StudentDetails = ({ apiUrl }) => {
                     <tbody>
                     {contacts.map((student) => (
                         <tr key={student.contactID}>
-                            <td>{student.nomEntreprise }</td>
+                            <td>{student.nomEntreprise}</td>
                             <td>{student.dateContact}</td>
                             <td>{student.nombreEntretiens}</td>
                             <td>

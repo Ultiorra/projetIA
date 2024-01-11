@@ -53,7 +53,6 @@ const AdminPage = ( { apiUrl } ) => {
         throw new Error('Failed to add a new student');
       }
 
-      // Rafraîchir la liste des étudiants après l'ajout
       const updatedStudents = await response.json();
       setStudents(students.concat(updatedStudents));
       setNewStudent({
@@ -62,10 +61,8 @@ const AdminPage = ( { apiUrl } ) => {
         email: '',
         motDePasse: '',
         typeUtilisateur: 'etudiant1',
-
-        // Réinitialisez d'autres champs si nécessaire
       });
-      closeAddStudentModal(); // Fermer la boîte de dialogue après l'ajout
+      closeAddStudentModal();
     } catch (error) {
       console.error('Error adding a new student:', error);
     }
@@ -73,7 +70,6 @@ const AdminPage = ( { apiUrl } ) => {
 
   const handleRemoveStudent = async (studentID) => {
     try {
-      // Envoi de la requête DELETE pour supprimer un étudiant
       const response = await fetch(apiUrl + `/usersDelete/${studentID}`, {
         method: 'DELETE',
       });
@@ -98,7 +94,11 @@ const AdminPage = ( { apiUrl } ) => {
   return (
       <div className="admin-page">
         <h2>Admin Page - Student List</h2>
-        <table>
+        <table style={
+          {
+            backgroundColor: '#f4f4f4',
+          }
+        }  >
           <thead>
           <tr>
             <th>Student ID</th>
